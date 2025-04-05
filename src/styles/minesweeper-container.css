@@ -1,0 +1,10 @@
+.minesweeper-container {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 4px;
+}
+
+.minesweeper-container * {
+    text-align: left;
+    user-select: none;
+}

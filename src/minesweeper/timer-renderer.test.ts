@@ -25,7 +25,10 @@ describe('TimerRenderer', () => {
       timerRenderer.render();
 
       timer.start();
+
       setTimeout(() => {
+        timer.stop();
+
         expect(container.innerHTML).toBe('00:01');
       }, 1000);
     });

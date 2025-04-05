@@ -2,7 +2,7 @@ import { Cell } from './cell';
 import { Grid } from './grid';
 
 export class GridRenderer {
-  private matrice: Cell[];
+  private cells: Cell[];
 
   constructor(
     private readonly grid: Grid,
@@ -10,20 +10,20 @@ export class GridRenderer {
   ) {}
 
   render(): void {
-    this.matrice = this.grid.cells();
+    this.cells = this.grid.cells();
 
-    const maxX = Math.max(...this.matrice.map((cell: Cell) => cell.position().x()));
+    const maxX = Math.max(...this.cells.map((cell: Cell) => cell.position().x()));
     const divMatrice = this.createMatriceHTMLElement();
 
     let rowIndex = 0;
     let rowHTMLElement = this.createRowHTMLElement(rowIndex++);
-    for (const [cellIndex, cell] of this.matrice.entries()) {
+    for (const [cellIndex, cell] of this.cells.entries()) {
       rowHTMLElement.appendChild(this.createCellHTMLElement(cell));
 
       if (cell.position().x() === maxX) {
         divMatrice.appendChild(rowHTMLElement);
 
-        if (cellIndex !== (this.matrice.length - 1)) {
+        if (cellIndex !== (this.cells.length - 1)) {
           rowHTMLElement = this.createRowHTMLElement(rowIndex++);
         }
       }
@@ -41,7 +41,7 @@ export class GridRenderer {
 
   private createMatriceHTMLElement(): HTMLElement {
     const div = document.createElement('div');
-    div.classList.add('matrice');
+    div.classList.add('cells');
 
     return div;
   }

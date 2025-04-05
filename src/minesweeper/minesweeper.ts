@@ -14,10 +14,6 @@ export type MinesweeperConfig = {
 export class Minesweeper {
   private timer: Timer;
 
-  private _handleStartCallback = (): void => {};
-  private _handleWinCallback = (): void => {};
-  private _handleLooseCallback = (): void => {};
-
   constructor(private readonly config: MinesweeperConfig) {}
 
   init(): void {
@@ -35,17 +31,14 @@ export class Minesweeper {
 
     grid.handleStart(() => {
       this.timer.start();
-      this._handleStartCallback();
     });
 
     grid.handleWin(() => {
       this.timer.stop();
-      this._handleWinCallback();
     });
 
     grid.handleLoose(() => {
       this.timer.stop();
-      this._handleLooseCallback();
     });
   }
 }

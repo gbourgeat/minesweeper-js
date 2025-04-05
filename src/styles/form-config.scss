@@ -1,0 +1,47 @@
+.form {
+    position: static;
+    background-color: #daecf4;
+    padding: 10px 0;
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    border-bottom: 1px solid #c0e3ed;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+
+    .form-group {
+        display: inline-block;
+        border-radius: 6px;
+        background-image: linear-gradient(#3b5ba1, #1f4087);
+        padding: 6px 10px;
+        margin-right: 5px;
+
+        label {
+            font-weight: bold;
+            color: white;
+            margin-left: 6px;
+        }
+
+        input {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 3px;
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    }
+
+    .button {
+        font-size: 16px;
+        line-height: 18px;
+        display: inline-block;
+        border-radius: 6px;
+        background-image: linear-gradient(#7ba817, #8cc80f);
+        padding: 9px 18px;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        margin-left: 6px;
+    }
+}

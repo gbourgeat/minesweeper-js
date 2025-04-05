@@ -1,9 +1,8 @@
 import { GridRenderer } from './grid-renderer';
 import { TimerRenderer } from './timer-renderer';
-import { RemainingFlagRenderer } from './remaining-flag-renderer';
+import { FlagRemainderRenderer } from './flag-remainder-renderer';
 import { Grid } from './grid';
 import { Timer } from './timer';
-import { v } from 'vitest/dist/chunks/reporters.d.CfRkRKN2';
 
 export class MinesweeperRenderer {
   constructor(
@@ -21,11 +20,11 @@ export class MinesweeperRenderer {
     const gridHTMLElement = this.createGridHTMLElement(containerHTMLElement);
     const gridRenderer = new GridRenderer(this.grid, gridHTMLElement);
 
+    const flagsHTMLElement = this.createFlagRemainderHTMLElement(containerHTMLElement);
+    const flagRenderer = new FlagRemainderRenderer(this.grid, flagsHTMLElement);
+
     const timerHTMLElement = this.createTimerHTMLElement(containerHTMLElement);
     const timerRenderer = new TimerRenderer(this.timer, timerHTMLElement);
-
-    const flagsHTMLElement = this.createFlagRemainderHTMLElement(containerHTMLElement);
-    const flagRenderer = new RemainingFlagRenderer(this.grid, flagsHTMLElement);
 
     timerRenderer.render();
     flagRenderer.render();
@@ -52,7 +51,7 @@ export class MinesweeperRenderer {
   private createFlagRemainderHTMLElement(container: HTMLElement): HTMLElement {
     const flagRemainderHTMLElement = document.createElement('div');
     flagRemainderHTMLElement.id = 'minesweeper-flags';
-    flagRemainderHTMLElement.classList.add('flags');
+    flagRemainderHTMLElement.classList.add('flag-remainder');
     container.prepend(flagRemainderHTMLElement);
 
     return flagRemainderHTMLElement;

@@ -1,5 +1,6 @@
 import { Cell } from './cell';
 import { Position } from './position';
+import resolveMinesweeperMatrix from './resolve-minesweeper-matrix';
 
 export class GridGenerator {
   static generate(width: number, height: number, difficulty: number): Cell[] {
@@ -14,12 +15,12 @@ export class GridGenerator {
     const shuffledCellsString = this.shuffle(concatCellsChars);
     const cellsStringRowChunked = this.chunk(shuffledCellsString, width);
 
-    const stringMatriceWithMines = cellsStringRowChunked
+    const matrixString = cellsStringRowChunked
       .map((lineChars) => lineChars.join(''))
       .join('\n');
-    const stringMatriceWithMinesCount = addAdjacentMineCount(stringMatriceWithMines);
+    const resolvedMatrixString = resolveMinesweeperMatrix(matrixString);
 
-    return this.parse(stringMatriceWithMinesCount);
+    return this.parse(resolvedMatrixString);
   }
 
   private static shuffle(charsToShuffle: string[]): string[] {
@@ -57,58 +58,4 @@ export class GridGenerator {
 
     return cells;
   }
-}
-
-function getPreviousLine(currentLineIndex: number, matrice: string[][]): string[] | null {
-  return !currentLineIndex ? null : matrice[currentLineIndex - 1];
-}
-
-function getNextLine(currentLineIndex: number, matrice: string[][]): string[] | null {
-  return currentLineIndex === (matrice.length - 1) ? null : matrice[currentLineIndex + 1];
-}
-
-function countOfAdjacentMinesForLine(matriceLine: string[], position: number) {
-  const hasMineAtPosition = isMine(matriceLine[position]);
-  const hasMineAtPreviousPosition = position > 0 && isMine(matriceLine[position - 1]);
-  const hasMineAtNextPosition = position < matriceLine.length && isMine(matriceLine[position + 1]);
-
-  return [hasMineAtPosition, hasMineAtPreviousPosition, hasMineAtNextPosition]
-    .reduce((total: number, currentValue: boolean) => total + (currentValue ? 1 : 0), 0);
-}
-
-function countOfAdjacentMinesForPosition(matrice: string[][], yPosition: number, xPosition: number) {
-  let minesCounter = 0;
-
-  const line = matrice[yPosition];
-
-  const previousLine = getPreviousLine(yPosition, matrice);
-  if (previousLine) {
-    minesCounter += countOfAdjacentMinesForLine(previousLine, xPosition);
-  }
-
-  const nextLine = getNextLine(yPosition, matrice);
-  if (nextLine) {
-    minesCounter += countOfAdjacentMinesForLine(nextLine, xPosition);
-  }
-
-  minesCounter += countOfAdjacentMinesForLine(line, xPosition);
-
-  return minesCounter;
-}
-
-const isMine = (char: string) => char === '*';
-
-function addAdjacentMineCount(entry: string) {
-  const lines = entry.split('\n');
-  const matrice = lines.map(line => line.split(''));
-
-  return matrice.map((line, yPosition) => {
-    return line.map((char, xPosition) => {
-      if (isMine(char)) {
-        return '*';
-      }
-
-      return countOfAdjacentMinesForPosition(matrice, yPosition, xPosition);
-    }).join('');
-  }).join('\n');
 }

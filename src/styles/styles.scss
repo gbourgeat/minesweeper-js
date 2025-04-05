@@ -1,0 +1,17 @@
+@use "minesweeper-container";
+@use "flag-remainder";
+@use "timer";
+@use "grid";
+@use "form-config";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-size: .6vw;
+    background-color: #f6f6f6;
+}

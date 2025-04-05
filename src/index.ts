@@ -1,15 +1,20 @@
 import { Minesweeper, MinesweeperConfig } from './minesweeper/minesweeper';
-import './styles.css';
+import './styles/styles.scss';
 
-((document) => {
+((document: Document) => {
   let minesweeper: Minesweeper;
 
-  document.getElementById('start-btn').addEventListener('click', () => {
-    const width = (document.getElementById('width') as HTMLInputElement).value;
-    const height = (document.getElementById('height') as HTMLInputElement).value;
-    const difficulty = (document.getElementById('difficulty') as HTMLInputElement).value;
+  function initMinesweeper() {
+    minesweeper = new Minesweeper(minesweeperConfig());
+    minesweeper.init();
+  }
 
-    const config: MinesweeperConfig = {
+  function minesweeperConfig(): MinesweeperConfig {
+    const width = inputValueOf('input-width');
+    const height = inputValueOf('input-height');
+    const difficulty = inputValueOf('input-difficulty');
+
+    return {
       containerId: 'minesweeper-container',
       gridDimensions: {
         height: parseInt(height),
@@ -17,8 +22,14 @@ import './styles.css';
       },
       difficulty: parseInt(difficulty),
     };
+  }
 
-    minesweeper = new Minesweeper(config);
-    minesweeper.init();
-  });
+  document.getElementById('button-start')
+    .addEventListener('click', initMinesweeper);
+
+  initMinesweeper();
 })(document);
+
+function inputValueOf(elementId: string): string {
+  return (document.getElementById(elementId) as HTMLInputElement).value;
+}

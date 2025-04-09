@@ -1,97 +1,134 @@
+@media (max-width: 480px) {
+    .minesweeper-container .grid {
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+
+        .cell {
+            min-width: 25px;
+            font-size: 14px;
+        }
+    }
+}
+
 .minesweeper-container .grid {
+    display: grid;
+    width: 100%;
+    gap: 2px;
+
+    overflow-x: auto;
+
+    * {
+        font-weight: bold;
+    }
+
+    .cells {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .row {
+        display: flex;
+        width: 100%;
+    }
+
     .cell {
-        position: relative;
-        display: block;
-        width: 1.8vw;
-        height: 1.8vw;
-        float: left;
-        border: solid 1px #a6a6a6;
+        aspect-ratio: 1/1; /* Garantit des cellules carrées */
+        min-width: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(12px, 3vw, 18px);
+        user-select: none;
+        touch-action: manipulation;
+
+        border: solid 1px #cdcdcd;
         background-image: linear-gradient(#c8c8c8, #bdbdbd);
         border-radius: 5px;
         margin-right: 2px;
         margin-bottom: 2px;
 
-        &::after {
-            position: absolute;
-            font-weight: bold;
-            font-size: 1.4em;
-            width: 1.8vw;
-            height: 1.8vw;
-            text-align: center;
-            line-height: 1.8vw;
+        &.cell-undiscovered {
+            background-image: linear-gradient(#E5E5E5, #CFCFCF);
         }
-    }
 
-    .cell.cell-undiscovered {
-        background-image: linear-gradient(#E5E5E5, #CFCFCF);
-    }
+        &.cell-undiscovered:hover {
+            cursor: pointer;
+            background-image: linear-gradient(#c9d0e6, #CFCFCF);
+        }
 
-    .cell.cell-undiscovered:hover {
-        cursor: pointer;
-        background-image: linear-gradient(#c9d0e6, #CFCFCF);
-    }
+        &[data-count-mines]::after {
+            content: attr(data-count-mines);
+        }
 
-    .cell[data-count-mines]::after {
-        content: attr(data-count-mines);
-    }
+        &[data-count-mines="0"]::after {
+            content: "";
+        }
 
-    .cell[data-count-mines="0"]::after {
-        content: "";
-    }
-    .cell[data-count-mines="1"]::after {
-        color: #1633c3;
-    }
-    .cell[data-count-mines="2"]::after {
-        color: #488331;
-    }
-    .cell[data-count-mines="3"]::after {
-        color: #bd0d0d;
-    }
-    .cell[data-count-mines="4"]::after {
-        color: #cc6b21;
-    }
-    .cell[data-count-mines="5"]::after {
-        color: #0b82b6;
-    }
-    .cell[data-count-mines="6"]::after {
-        color: #73c6ec;
-    }
-    .cell[data-count-mines="7"]::after {
-        color: #d8a013;
-    }
-    .cell[data-count-mines="8"]::after {
-        color: #ab06c1;
-    }
+        &[data-count-mines="1"]::after {
+            color: #1633c3;
+        }
 
-    .cell.cell-discovered.cell-mined::after  {
-        content: "☢";
-        color: #e63744;
-    }
+        &[data-count-mines="2"]::after {
+            color: #488331;
+        }
 
-    /* FLAGGED UNDISCOVERED */
-    .cell.cell-undiscovered.cell-flagged {
-        background-image: linear-gradient(#93003a, #4a0404);
-    }
-    .cell.cell-undiscovered.cell-flagged::after {
-        content: "⚚";
-        color: white;
-    }
+        &[data-count-mines="3"]::after {
+            color: #bd0d0d;
+        }
 
-    /* FLAGGED DISCOVERED WITHOUT MINE */
-    .cell.cell-discovered.cell-flagged.cell-empty {
-        background-image: linear-gradient(#373737, #000000);
-    }
-    .cell.cell-discovered.cell-flagged.cell-empty::after {
-        content: "☢";
-        color: red;
-    }
+        &[data-count-mines="4"]::after {
+            color: #cc6b21;
+        }
 
-    /* FLAGGED DISCOVERED WITH MINE */
-    .cell.cell-discovered.cell-flagged.cell-mined {
-        background-image: linear-gradient(#3d8a0f, #46680a);
-    }
-    .cell.cell-discovered.cell-flagged.cell-mined::after {
-        content: "☢";
-        color: white;
+        &[data-count-mines="5"]::after {
+            color: #0b82b6;
+        }
+
+        &[data-count-mines="6"]::after {
+            color: #73c6ec;
+        }
+
+        &[data-count-mines="7"]::after {
+            color: #d8a013;
+        }
+
+        &[data-count-mines="8"]::after {
+            color: #ab06c1;
+        }
+
+        &.cell-discovered.cell-mined::after {
+            content: "☢";
+            color: #e63744;
+        }
+
+        /* FLAGGED UNDISCOVERED */
+        &.cell-undiscovered.cell-flagged {
+            background-image: linear-gradient(#93003a, #4a0404);
+        }
+
+        &.cell-undiscovered.cell-flagged::after {
+            content: "⚚";
+            color: white;
+        }
+
+        /* FLAGGED DISCOVERED WITHOUT MINE */
+        &.cell-discovered.cell-flagged.cell-empty {
+            background-image: linear-gradient(#373737, #000000);
+        }
+
+        &.cell-discovered.cell-flagged.cell-empty::after {
+            content: "⚚";
+            color: red;
+        }
+
+        /* FLAGGED DISCOVERED WITH MINE */
+        &.cell-discovered.cell-flagged.cell-mined {
+            background-image: linear-gradient(#3d8a0f, #46680a);
+        }
+
+        &.cell-discovered.cell-flagged.cell-mined::after {
+            content: "⚚";
+            color: white;
+        }
     }
 }

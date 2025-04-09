@@ -1,11 +1,11 @@
 .form {
     position: static;
-    background-color: #daecf4;
+    background-color: #d0c8ed;
     padding: 10px 0;
     width: 100%;
     display: block;
     font-size: 16px;
-    border-bottom: 1px solid #c0e3ed;
+    border-bottom: 1px solid rgba(160, 156, 181, 0.42);
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 
     .form-group {
@@ -13,7 +13,7 @@
         border-radius: 6px;
         background-image: linear-gradient(#3b5ba1, #1f4087);
         padding: 6px 10px;
-        margin-right: 5px;
+        margin: 5px;
 
         label {
             font-weight: bold;
@@ -22,12 +22,14 @@
         }
 
         input {
-            padding: 4px 8px;
+            padding: 4px 8px 2px;
             border: none;
             border-radius: 3px;
             margin-left: 10px;
             font-weight: bold;
             font-size: 16px;
+            text-align: center;
+            width: 45px;
         }
     }
 
@@ -43,5 +45,9 @@
         border: none;
         cursor: pointer;
         margin-left: 6px;
+
+        &:hover {
+            background-image: linear-gradient(#acd55c, #98c533);
+        }
     }
 }

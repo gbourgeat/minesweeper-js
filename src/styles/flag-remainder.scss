@@ -1,10 +1,12 @@
 .minesweeper-container .flag-remainder {
   display: inline-block;
-  font-size: 1.2em;
+  font-size: 19px;
   font-weight: bold;
-  padding: 8px 12px;
+  padding: 6px 16px;
   background-image: linear-gradient(#93003a, #4a0404);
   border-radius: 6px;
   color: white;
   margin: 10px 10px 10px 0;
+  height: 24px;
+  line-height: 24px;
 }
